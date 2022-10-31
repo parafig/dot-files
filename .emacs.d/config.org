@@ -1,0 +1,68 @@
+* Terminal
+** Settings default shell to bash
+#+BEGIN_SRC emacs-lisp
+(defvar my-term-shell "/bin/bash")
+(defadvice ansi-term (before force-bash)
+	   (interactive (list my-term-shell)))
+(ad-activate 'ansi-term)
+(global-set-key (kbd "C-x t") 'ansi-term)
+#+END_SRC
+
+* General Settings
+** Disable default 
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(setq inhibit-startup-message t)
+#+END_SRC
+** yes or no
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC  
+** Disable ring bell.
+#+BEGIN_SRC emacs-lisp
+(setq ring-bell-function 'ignore)
+#+END_SRC
+
+** Cursor position
+#+BEGIN_SRC emacs-lisp
+(setq line-number-mode t)
+(setq column-number-mode t)
+#+END_SRC
+
+** Disable backups and auto save
+#+BEGIN_SRC emacs-lisp
+(setq make-backup-file nil)
+(setq auto-save-default nil)
+#+END_SRC
+
+** Copy and paste from different apps
+#+BEGIN_SRC emacs-lisp
+  (setq x-select-enable-clipboard t)
+
+#+END_SRC
+
+* Following window splits
+#+BEGIN_SRC emacs-lisp
+(defun split-and-follow-horizontally ()
+(interactive)
+(split-window-below)
+(balance-windows)
+(other-window 1))
+(global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+
+(defun split-and-follow-vertically ()
+(interactive)
+(split-window-right)
+(balance-windows)
+(other-window 1))
+(global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+#+END_SRC
+
+* Org-mode Settings
+** Org-agenda
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (setq org-agenda-files '("~/Documents/todo.org" "~/Documents/project.org"))
+#+END_SRC
